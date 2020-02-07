@@ -1,0 +1,17 @@
+.news_item{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.news_title{
+
+    text-align: center;
+    font-size: 18px;
+    color: rgb(255, 127, 147);
+
+    text-shadow: rgb(0, 0, 0) 1px 1px 1px;
+    text-decoration: none;
+}
+.news_item_content{
+
+}

@@ -1,0 +1,32 @@
+.message_wrap {
+    display: flex;
+    align-items: center;
+}
+
+.massage_prifileImage {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+}
+
+.message_content {
+    border-radius: 5px;
+    display: inline-block;
+    padding: 10px 18px;
+    position: relative;
+    margin: 10px 10px 10px 15px;
+    max-width: 80%;
+    background-color: #e6e5eb;
+}
+
+.message_content:before {
+    content: "\00a0";
+    display: block;
+    height: 16px;
+    width: 9px;
+    position: absolute;
+    bottom: -7.5px;
+    background-color: #e6e5eb;
+    left: 10px;
+    -webkit-transform: rotate(70deg) skew(5deg);
+}

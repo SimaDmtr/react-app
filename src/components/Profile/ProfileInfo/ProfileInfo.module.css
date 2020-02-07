@@ -1,3 +1,23 @@
-.descriptionBlock {
-    padding: 10px;
+.content {
+  grid-area: c;
+  background-color: rgba(107, 160, 255, 0.14);
+}
+.profile_info{
+  display: flex;
+}
+.avatar{
+  border: 2px solid #1d1d1d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 15%;
+  width: 100%;
+}
+.profile_info_desc{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px;
+  max-width: 40%;
+  width: 100%;
 }
