@@ -1,25 +1,35 @@
-.dialog{
-    font-weight: 400;
+.dialog_item {
+    text-decoration: none;
+    display: flex;
     cursor: pointer;
-    text-decoration: none;
-    padding: 15px 20px;
-    color: gray;
+    padding: 5px 20px;
+    align-items: center;
 }
 
-.dialog_item{
-    text-decoration: none;
-    font-weight: 500;
+.dialog_item:hover {
+    background-color: #6490b1;
 }
 
-.dialog.active {
-    color: #47dbf0;
-    font-size: 18px;
-    background-color: #6490b1;
-}
-.dialog:hover{
-    color: #47dbf0;
-    background-color: #6490b1;
-}
-.dialog:hover .dialog_item{
+.dialog_item:hover .dialog_item_body_title,.dialog_item:hover .dialog_item_body_status{
     color: #ffffff;
 }
+
+.dialog_item_photo {
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+}
+
+.dialog_item_body {
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+
+}
+
+.dialog_item_body_title {
+    font-weight: 400;
+    color: #393939;
+    text-decoration: none;
+}
+

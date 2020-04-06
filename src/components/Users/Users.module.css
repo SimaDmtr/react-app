@@ -1,0 +1,72 @@
+.user_list_item{
+    display: flex;
+}
+
+.user_list_item_profile{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user_list_item_profile_photo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+.user_list_item_info{
+    display: flex;
+}
+
+.users_wrap{
+    width: 100%;
+}
+
+.pagination{
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+}
+
+.pagination span{
+    height: 30px;
+    width: 30px;
+    border: 1px solid #6490b1;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -ms-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+    cursor: pointer;
+}
+
+.pagination span:hover{
+    background-color: #94C2ED;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -ms-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+    color: #ffffff;
+}
+
+.pagination span:not(:first-child){
+    margin-left: 16px;
+}
+.selected{
+    background-color: #94C2ED;
+}
+
+.follow_button{
+    margin-top: 10px;
+}

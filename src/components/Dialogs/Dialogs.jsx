@@ -9,8 +9,10 @@ const Dialogs = (props) => {
     let state = props.dialogsPage;
 
     let dialogsElements = state.dialogs.map(dialog => <DialogItem
+        photo={dialog.photo}
         name={dialog.name}
         id={dialog.id}
+        status={dialog.status}
     />);
 
     let messagesElements = state.messages.map(message => <Message
@@ -25,6 +27,7 @@ const Dialogs = (props) => {
     let onMessageChange = (e) => {
         let text = e.target.value;
         props.updateMessageText(text);
+
     };
 
     return (
@@ -50,4 +53,4 @@ const Dialogs = (props) => {
     )
 };
 
-export default Dialogs
+export default Dialogs;

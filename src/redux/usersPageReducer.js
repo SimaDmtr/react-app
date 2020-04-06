@@ -1,190 +1,83 @@
-const ADD_MESSAGE = 'ADD_MESSAGE';
-const ADD_NEW_MESSAGE_TEXT = 'ADD_NEW_MESSAGE_TEXT';
+const FOLLOW = "FOLLOW";
+const UNFOLLOW = "UNFOLLOW";
+const SET_USERS = "SET_USERS"
+const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
 
 let initialState = {
-    messages: [
-        {
-            id: '1',
-            message: 'Привет'
-        },
-        {
-            id: '2',
-            message: 'Как дела?'
-        },
-        {
-            id: '2',
-            message: 'У тебя волчанка'
-        },
-        {
-            id: '2',
-            message: 'Я бы с радостью послушал еще, но мне как-то пофиг'
-        },
-        {
-            id: '2',
-            message: 'У вас двоих много общего — вы оба идиоты.'
-        },
-        {
-            id: '2',
-            message: 'Если не хотите портить с человеком отношения – не мешайте ему врать.'
-        },
-        {
-            id: '2',
-            message: 'Все паршиво... но нужно иногда находить повод для улыбки!'
-        },
-        {
-            id: '2',
-            message: 'Не нравится ответ — не задавай вопрос.'
-        },
-        {
-            id: '2',
-            message: 'Я солгал'
-        },
-        {
-            id: '2',
-            message: 'Не нравится? Выходы есть на всех этажах.'
-        },
-        {
-            id: '2',
-            message: 'Другого меня у тебя не будет.'
-        },
-        {
-            id: '2',
-            message: 'Знаешь, почему ты черный?'
-        },
-        {
-            id: '2',
-            message: 'Это припадок или он так танцует?'
-        },
-        {
-            id: '1',
-            message: 'Привет'
-        },
-        {
-            id: '2',
-            message: 'Как дела?'
-        },
-        {
-            id: '2',
-            message: 'У тебя волчанка'
-        },
-        {
-            id: '2',
-            message: 'Я бы с радостью послушал еще, но мне как-то пофиг'
-        },
-        {
-            id: '2',
-            message: 'У вас двоих много общего — вы оба идиоты.'
-        },
-        {
-            id: '2',
-            message: 'Если не хотите портить с человеком отношения – не мешайте ему врать.'
-        },
-        {
-            id: '2',
-            message: 'Все паршиво... но нужно иногда находить повод для улыбки!'
-        },
-        {
-            id: '2',
-            message: 'Не нравится ответ — не задавай вопрос.'
-        },
-        {
-            id: '2',
-            message: 'Я солгал'
-        },
-        {
-            id: '2',
-            message: 'Не нравится? Выходы есть на всех этажах.'
-        },
-        {
-            id: '2',
-            message: 'Другого меня у тебя не будет.'
-        },
-        {
-            id: '2',
-            message: 'Знаешь, почему ты черный?'
-        },
-        {
-            id: '2',
-            message: 'Это припадок или он так танцует?'
-        }
-    ],
-    newMessageText: "Write here...",
-    dialogs: [
-        {
-            photo: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01.jpg',
-            id: '1',
-            name: 'Дима',
-            status: 'Online'
-        },
-        {
-            photo: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_02.jpg',
-            id: '2',
-            name: 'Сергей',
-            status: 'Offline'
-        },
-        {
-            photo: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_03.jpg',
-            id: '3',
-            name: 'Илья',
-            status: 'Online'
-        },
-        {
-            photo: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_04.jpg',
-            id: '4',
-            name: 'Влад',
-            status: 'Offline'
-        },
-        {
-            photo: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_05.jpg',
-            id: '5',
-            name: 'Ярык',
-            status: 'Online'
-        },
-        {
-            photo: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_06.jpg',
-            id: '6',
-            name: 'Марк',
-            status: 'Offline'
-        },
-        {
-            photo: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_07.jpg',
-            id: '7',
-            name: 'Иван',
-            status: 'Offline'
-        },
-        {
-            photo: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_08.jpg',
-            id: '9',
-            name: 'Хаус',
-            status: 'Online'
-        }
-    ]
+    users: [],
+    pageSize: 5,
+    totalUsersCount: 16,
+    currentPage: 1
+
+
 };
 
-const dialogsPageReducer = (state = initialState, action) => {
+const usersPageReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ADD_NEW_MESSAGE_TEXT:
+        case FOLLOW:
             return {
                 ...state,
-                newMessageText: action.updatedText
+                users: state.users.map(u => {
+                    if (u.id === action.userId) {
+                        return {
+                            ...u,
+                            followed: true
+                        }
+                    }
+                    return u
+                })
             };
-        case ADD_MESSAGE:
+        case UNFOLLOW:
             return {
                 ...state,
-                newMessageText: '',
-                messages: [...state.messages, {id: 5, message: state.newMessageText}]
+                users: state.users.map(u => {
+                    if (u.id === action.userId) {
+                        return {
+                            ...u,
+                            followed: false
+                        }
+                    }
+                    return u
+                })
+            };
+        case SET_USERS:
+            return {
+                ...state,
+                users: action.users
+            };
+        case SET_CURRENT_PAGE:
+            return {
+                ...state,
+                currentPage: action.currentPage
             };
         default:
             return state;
     }
 };
-export const sendMessageActionCreator = () => {
-    return {type: ADD_MESSAGE}
-};
-export const updateMessageTextActionCreated = (updatedMessage) => {
+export const followAC = (userId) => {
     return {
-        type: ADD_NEW_MESSAGE_TEXT,
-        updatedText: updatedMessage
+        type: FOLLOW,
+        userId
     }
 };
-export default dialogsPageReducer;
+
+export const unfollowAC = (userId) => {
+    return {
+        type: UNFOLLOW,
+        userId
+    }
+};
+
+export const setUsersAC = (users) => {
+    return {
+        type: SET_USERS,
+        users
+    }
+};
+export const setCurrentPageAC = (page) => {
+    return {
+        type: SET_CURRENT_PAGE,
+        currentPage: page
+    }
+};
+export default usersPageReducer;

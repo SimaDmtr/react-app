@@ -1,9 +1,5 @@
 .header {
     grid-area: h;
-    background-color: #3684bc;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #1d1d1d;
 
 }
 .header h1{
