@@ -1,6 +1,7 @@
 .header {
     grid-area: h;
-
+    position: relative;
+    z-index: 1201;
 }
 .header h1{
     padding: 0;

@@ -19,7 +19,6 @@ const App = () => {
                            render={() => <Profile/>}/>
                     <Route path="/users"
                            render={() => <UsersContainer/>}/>
-
                 </div>
             </div>
     )

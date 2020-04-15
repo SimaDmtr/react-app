@@ -12,7 +12,9 @@
     text-decoration: none;
     font-weight: 500;
 }
-
+.item a:hover{
+    color: #d6d6d6;
+}
 .item a.active {
     color: #82e6d7;
 }
