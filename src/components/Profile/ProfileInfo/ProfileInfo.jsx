@@ -1,11 +1,16 @@
 import React from 'react';
 import s from './ProfileInfo.module.css';
+import LinearProgress from "@material-ui/core/LinearProgress";
 
-const ProfileInfo = () => {
+const ProfileInfo = (props) => {
+    if(!props.profile){
+        return <LinearProgress variant="query"/>
+    }
+
     return (
         <div className={s.profile_info}>
             <div className={s.avatar}>
-                <img src="https://www.meme-arsenal.com/memes/f2d1a5c317618a7ab43fa6dc05b27bf6.jpg"
+                <img src={props.profile.photos.large}
                      alt=""/>
             </div>
             <div className={s.profile_info_desc}>
