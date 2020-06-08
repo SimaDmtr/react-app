@@ -17,6 +17,8 @@ let initialState = {
     isFollowFetching: []
 };
 
+//Редюсер
+
 const usersPageReducer = (state = initialState, action) => {
     switch (action.type) {
         case FOLLOW:
@@ -66,6 +68,7 @@ const usersPageReducer = (state = initialState, action) => {
                 isFetching: action.isFetching
             };
         case TOGGLE_FOLLOW_IS_FETCHING:
+
             return {
                 ...state,
                 isFollowFetching: action.isFollowFetching
@@ -76,6 +79,9 @@ const usersPageReducer = (state = initialState, action) => {
             return state;
     }
 };
+
+//Экшн креэйторы
+
 export const followSuccess = (userId) => ({
     type: FOLLOW,
     userId
@@ -100,7 +106,7 @@ export const setTotalUsersCount = (count) => ({
 });
 export const toggleIsFetching = (isFetching) => ({
     type: TOGGLE_IS_FETCHING,
-    isFetching: isFetching
+    isFetching
 });
 export const toggleFollowIsFetching = (isFollowFetching, userId) => ({
     type: TOGGLE_FOLLOW_IS_FETCHING,
@@ -108,12 +114,17 @@ export const toggleFollowIsFetching = (isFollowFetching, userId) => ({
     userId,
 });
 
-export const getUsers = (currentPage,pageSize) => {
+//Санки(ThunkCreator => return Thunk) В ThunkCreator передаём нужные параметры и возвращаем санку с помощью замыкания
+
+export const getUsers = (currentPage, pageSize) => {
     return (dispatch) => {
+        //При вызове функции сразу показываем прелоадер страницы
         dispatch(toggleIsFetching(true));
+        //Из санок вызываем функцию DAL, в которую передаём страницу и размер страницы (по умолчанию 1 и 16), после успеха срабатывает then
         usersAPI.getUsers(currentPage, pageSize).then(data => {
+            //Сразу убираем крутилку, сетаем массив юзеров и обновляем их количество(пока делим на 15, т.к. юзеров много)
             dispatch(toggleIsFetching(false));
-            dispatch(setUsers(data.items))
+            dispatch(setUsers(data.items));
             dispatch(setTotalUsersCount(data.totalCount / 15));
         })
     }
@@ -123,7 +134,7 @@ export const follow = (id) => {
         dispatch(toggleFollowIsFetching(true, id))
         usersAPI.followUser(id)
             .then(data => {
-                if(data.resultCode === 0){
+                if (data.resultCode === 0) {
                     dispatch(followSuccess(id))
                 }
                 dispatch(toggleFollowIsFetching(false, id))
@@ -135,7 +146,7 @@ export const unfollow = (id) => {
         dispatch(toggleFollowIsFetching(true, id))
         usersAPI.unfollowUser(id)
             .then(data => {
-                if(data.resultCode === 0){
+                if (data.resultCode === 0) {
                     dispatch(unfollowSuccess(id))
                 }
                 dispatch(toggleFollowIsFetching(false, id))

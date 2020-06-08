@@ -1,7 +1,6 @@
 import * as axios from "axios";
 import {instance} from "./instance";
 
-
 export const usersAPI = {
     getUsers(currentPage, pageSize) {
        return  instance.get(`users?page=${currentPage}&count=${pageSize}`)
@@ -22,7 +21,7 @@ export const usersAPI = {
 }
 export const authAPI = {
     getAuth() {
-        return  instance.get(`/auth/me`)
+        return instance.get(`/auth/me`)
             .then(response => response.data)
     }
 }

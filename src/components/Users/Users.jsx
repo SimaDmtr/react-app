@@ -10,10 +10,14 @@ import {usersAPI} from "../../api/api";
 
 class Users extends React.Component {
     render() {
+
+        //Округляем полученное число страниц в большую сторону, если остался остаток от деления
         let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
 
+        //Создаём пустой массив пагинации
         let pages = [];
 
+        //Циклом проходим по количестку страниц и пушим число в массив
         for (let i = 1; i <= pagesCount; i++) {
             pages.push(i)
         }
@@ -22,6 +26,7 @@ class Users extends React.Component {
             : <>
                 <div className="row ">
                     {this.props.users.map(u =>
+                        //Мапим всех полученных пользователей
                         <div
                             className="text-center col-md-6"
                             key={u.id}
@@ -34,10 +39,12 @@ class Users extends React.Component {
                                        alt={u.fullName}/></NavLink>
                             <p>{u.name}</p>
                             {u.followed
+                                //В зависимости от статуса подписки отображаем соответствующую кнопку и вешаем метод из санок, который лежит в BLL->DAL
                                 ? <Button className={s.follow_button} variant="light" onClick={() => {
                                     this.props.unfollow(u.id)
                                 }}>{this.props.isFollowFetching.some(id => id === u.id) ?
                                     <CircularProgress/> : 'Отписаться'}</Button>
+
                                 : <Button className={s.follow_button} variant="light" onClick={() => {
                                     this.props.follow(u.id)
                                 }}>{this.props.isFollowFetching.some(id => id === u.id) ?
@@ -49,7 +56,9 @@ class Users extends React.Component {
                 <div className="container-fluid d-flex justify-content-center">
                     <ButtonGroup className="mr-2 ">
                         {pages.map(page => {
+                            //Мапим массив номеров страниц и выводим ввиде кнопок
                             return <Button variant="secondary" onClick={() => {
+                                //Передаём в событие номер кликнутой страницы, этот же номер пишем внутри кнопки
                                 this.props.onPageChanged(page)
                             }} className={this.props.currentPage === page && s.selected}>{page}</Button>
                         })}
