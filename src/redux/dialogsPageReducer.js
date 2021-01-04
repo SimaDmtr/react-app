@@ -1,5 +1,4 @@
 const ADD_MESSAGE = 'ADD_MESSAGE';
-const ADD_NEW_MESSAGE_TEXT = 'ADD_NEW_MESSAGE_TEXT';
 
 let initialState = {
     messages: [
@@ -108,7 +107,6 @@ let initialState = {
             message: 'Это припадок или он так танцует?'
         }
     ],
-    newMessageText: "Write here...",
     dialogs: [
         {
             photo: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01.jpg',
@@ -163,28 +161,17 @@ let initialState = {
 
 const dialogsPageReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ADD_NEW_MESSAGE_TEXT:
-            return {
-                ...state,
-                newMessageText: action.updatedText
-            };
         case ADD_MESSAGE:
             return {
                 ...state,
-                newMessageText: '',
-                messages: [...state.messages, {id: 5, message: state.newMessageText}]
+                messages: [...state.messages, {id: 5, message: action.newMessageBody}]
             };
         default:
             return state;
     }
 };
-export const sendMessageActionCreator = () => {
-    return {type: ADD_MESSAGE}
+export const sendMessageActionCreator = (newMessageBody) => {
+    return {type: ADD_MESSAGE, newMessageBody}
 };
-export const updateMessageTextActionCreated = (updatedMessage) => {
-    return {
-        type: ADD_NEW_MESSAGE_TEXT,
-        updatedText: updatedMessage
-    }
-};
+
 export default dialogsPageReducer;

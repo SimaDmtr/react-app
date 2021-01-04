@@ -12,6 +12,5 @@ export const withAuthRedirect = (Component) => {  //Создаём HOC, кото
             if (!props.isAuth) return <Redirect to='/login'/>
             return <Component {...props}/>
     }
-
     return compose(connect(mapStateToPropsRedirect))(RedirectComponent)
 }

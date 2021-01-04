@@ -34,5 +34,11 @@ export const getAuthUsersData = () =>{
         })
     }
 }
-
+export const signIn = (email,password, rememberMe,captcha) => (dispatch) =>{
+        authAPI.signIn(email,password, rememberMe,captcha).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(getAuthUsersData())
+            }
+        })
+}
 export default authReducer;
