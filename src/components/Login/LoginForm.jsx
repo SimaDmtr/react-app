@@ -1,44 +1,56 @@
 import React from "react";
-import { Field, reduxForm } from "redux-form";
-import { Input } from "../common/FormControls/FormsControls";
-import { required } from "../../utils/validators/validators";
+import {Field, reduxForm} from "redux-form";
+
+import {required} from "../../utils/validators/validators";
+import {Form, Card, Button, Alert} from "react-bootstrap";
+import {CheckForm, FieldInput} from "../common/FormControls/FormsControls";
 
 const LoginForm = (props) => {
-  return (
-    <form onSubmit={props.handleSubmit}>
-      <div>
-        <Field
-          type="text"
-          name={"email"}
-          placeholder={"Email"}
-          component={Input}
-          validate={[required]}
-        />
-      </div>
-      <div>
-        <Field
-          type="text"
-          name={"password"}
-          placeholder={"password"}
-          component={Input}
-          validate={[required]}
-        />
-      </div>
-      <div>
-        <label>
-          <Field type="checkbox" name={"rememberMe"} component={Input} />{" "}
-          Remember me
-        </label>
-      </div>
-      <div>
-        <button>Sign In</button>
-      </div>
-    </form>
-  );
+    return (
+        <Card.Body>
+            <Form onSubmit={props.handleSubmit}>
+                <Form.Group controlId="formGroupEmail">
+                    <Form.Label>Email address</Form.Label>
+                    <Field
+                        type="text"
+                        name={"email"}
+                        placeholder={"Email"}
+                        component={FieldInput}
+                        validate={[required]}
+                    />
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Password</Form.Label>
+                    <Field
+                        type="password"
+                        name={"password"}
+                        placeholder={"password"}
+                        component={FieldInput}
+                        validate={[required]}
+                    />
+                </Form.Group>
+                <Form.Group>
+                    <Field id="rememberMeCheck" type="checkbox" name={"rememberMe"} component={CheckForm}
+                           label={'Remember me'}/>
+                </Form.Group>
+                <Button variant="primary" type="submit">
+                    SIGN IN
+                </Button>
+                {props.error &&
+                <Alert className={'mt-3'} variant="danger">
+                    <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+                    <p>
+                        {props.error}
+                    </p>
+                </Alert>
+                }
+            </Form>
+        </Card.Body>
+    );
 };
 
 const LoginReduxForm = reduxForm({
-  form: "login",
+    form: "login",
 })(LoginForm);
 
 export default LoginReduxForm;
