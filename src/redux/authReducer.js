@@ -29,7 +29,7 @@ export const setAuthUserData = (userId, login, email, isAuth) => ({
 
 export const getAuthUsersData = () => {
     return (dispatch) => {
-        authAPI.getAuth().then((data) => {
+        return authAPI.getAuth().then((data) => {
             if (data.resultCode === 0) {
                 let {id, login, email} = data.data;
                 dispatch(setAuthUserData(id, login, email, true));
@@ -41,7 +41,7 @@ export const signIn = (email, password, rememberMe, captcha) => (dispatch) => {
     authAPI.signIn(email, password, rememberMe, captcha).then((data) => {
         if (data.resultCode === 0) {
             dispatch(getAuthUsersData());
-        }else{
+        } else {
             let message = data.messages.length > 0 ? data.messages[0] : 'Incorrect email or password';
             dispatch(stopSubmit('login', {_error: message}))
         }

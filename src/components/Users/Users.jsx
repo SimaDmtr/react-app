@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, ButtonGroup, CardColumns, CardDeck, CardGroup, Image, Table} from "react-bootstrap";
+import {Button, ButtonGroup, CardColumns, CardDeck, CardGroup, Image, Table, Pagination} from "react-bootstrap";
 import user from "../../user.png";
 import s from "./Users.module.css";
 import LinearProgress from "@material-ui/core/LinearProgress";
@@ -54,15 +54,15 @@ class Users extends React.Component {
                     )}
                 </div>
                 <div className="container-fluid d-flex justify-content-center">
-                    <ButtonGroup className="mr-2 ">
+                    <Pagination className="mr-2 ">
                         {pages.map(page => {
                             //Мапим массив номеров страниц и выводим ввиде кнопок
-                            return <Button variant="secondary" onClick={() => {
+                            return <Pagination.Item key={page} onClick={() => {
                                 //Передаём в событие номер кликнутой страницы, этот же номер пишем внутри кнопки
                                 this.props.onPageChanged(page)
-                            }} className={this.props.currentPage === page && s.selected}>{page}</Button>
+                            }} active={this.props.currentPage === page && true}>{page}</Pagination.Item>
                         })}
-                    </ButtonGroup>
+                    </Pagination>
                 </div>
 
             </>

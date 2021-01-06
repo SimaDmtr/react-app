@@ -116,10 +116,11 @@ export const toggleFollowIsFetching = (isFollowFetching, userId) => ({
 
 //Санки(ThunkCreator => return Thunk) В ThunkCreator передаём нужные параметры и возвращаем санку с помощью замыкания
 
-export const getUsers = (currentPage, pageSize) => {
+export const requestUsers = (currentPage, pageSize) => {
     return (dispatch) => {
         //При вызове функции сразу показываем прелоадер страницы
         dispatch(toggleIsFetching(true));
+        dispatch(setCurrentPage(currentPage));
         //Из санок вызываем функцию DAL, в которую передаём страницу и размер страницы (по умолчанию 1 и 16), после успеха срабатывает then
         usersAPI.getUsers(currentPage, pageSize).then(data => {
             //Сразу убираем крутилку, сетаем массив юзеров и обновляем их количество(пока делим на 15, т.к. юзеров много)

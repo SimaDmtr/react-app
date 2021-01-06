@@ -11,7 +11,7 @@ class ProfileContainer extends React.Component {
         //В пропсах лежат оъекты withRouter, достаём userId из match.params переданный через Route path
         let userId = this.props.match.params.userId;
         if (!userId) {
-            userId = 6782;
+            userId = this.props.authUserId
         }
         this.props.getUserProfile(userId)
         this.props.getUserStatus(userId)
@@ -27,7 +27,9 @@ class ProfileContainer extends React.Component {
 
 let mapStateToProps = (state) => ({
     profile: state.profilePage.profile,
-    status: state.profilePage.status
+    status: state.profilePage.status,
+    authUserId: state.auth.userId,
+    isAuth: state.auth.isAuth
 })
 
 //Оборачиваем контейнер функцией withRouter для отслеживания URLa

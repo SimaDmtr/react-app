@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    follow, getUsers,
+    follow, requestUsers,
     setCurrentPage,
     toggleFollowIsFetching,
     unfollow
@@ -9,6 +9,13 @@ import {connect} from "react-redux";
 import Users from "./Users";
 import {withAuthRedirect} from "../Hocs/withAuthRedirect";
 import {compose} from "redux";
+import {
+    getCurrentPage,
+    getIsFetching,
+    getIsFollowFetching,
+    getPageSize,
+    getTotalUsersCount, getUsers
+} from "../../redux/usersSelectors";
 
 class UsersContainer extends React.Component {
 
@@ -40,23 +47,32 @@ class UsersContainer extends React.Component {
     }
 }
 //Функция, возвращающая обьект со стейтом
+// let mapStateToProps = (state) => {
+//     return {
+//         users: state.usersPage.users,
+//         pageSize: state.usersPage.pageSize,
+//         totalUsersCount: state.usersPage.totalUsersCount,
+//         currentPage: state.usersPage.currentPage,
+//         isFetching: state.usersPage.isFetching,
+//         isFollowFetching: state.usersPage.isFollowFetching
+//     }
+// }
 let mapStateToProps = (state) => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        isFollowFetching: state.usersPage.isFollowFetching
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        isFollowFetching: getIsFollowFetching(state)
     }
 }
-
 
 export default compose(connect(mapStateToProps, {
     follow,
     unfollow,
     setCurrentPage,
     toggleFollowIsFetching,
-    getUsers
+    getUsers: requestUsers
 }),withAuthRedirect)(UsersContainer)
 //Коннектим mapStateToProps и mapDispatchToProps (сразу в виде объекта)  и передаём в контейнерную классовую компоненту
